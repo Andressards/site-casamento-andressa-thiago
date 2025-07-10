@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Casamento Andressa & Thiago</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fffaf5;
+      color: #4D4D3C;
+    }
+
+    header {
+      background-color: #D8A2A0;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    section {
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    section h2 {
+      color: #7A7A5F;
+      margin-bottom: 10px;
+    }
+
+    form {
+      background: #F2CFCF;
+      padding: 30px;
+      margin: 0 auto;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-top: 5px;
+      font-size: 1em;
+    }
+
+    button {
+      margin-top: 20px;
+      background-color: #7A7A5F;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #4D4D3C;
+    }
+
+    #mensagem {
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    footer {
+      background-color: #EAD8B5;
+      color: #4D4D3C;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Andressa & Thiago</h1>
+  <p>Com alegria, convidamos você para celebrar o nosso amor 💕</p>
+</header>
+
+<section>
+  <h2>Confirme sua presença</h2>
+  <p>Por favor, preencha até 10 de novembro:</p>
+
+  <form id="rsvp-form">
+    <label for="nome">Seu nome:</label>
+    <input type="text" id="nome" name="nome" required>
+
+    <label for="presenca">Você irá comparecer?</label>
+    <select id="presenca" name="presenca" required>
+      <option value="">Selecione</option>
+      <option value="Sim">Sim, com certeza!</option>
+      <option value="Não">Infelizmente, não poderei ir</option>
+    </select>
+
+    <button type="submit">Confirmar</button>
+    <p id="mensagem"></p>
+  </form>
+</section>
+
+<footer>
+  Celebrar com carinho — Andressa & Thiago 💞
+</footer>
+
+<script>
+  document.getElementById("rsvp-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const dados = {
+      nome: document.getElementById("nome").value,
+      presenca: document.getElementById("presenca").value
+    };
+
+   fetch("https://script.google.com/macros/s/AKfycbzUBUcTTAszqCBxswMJyd8O9AvkVYZEwF6r4rQ42-3RRiwthHIB0kOFDG7pAYuXl7RD/exec", {
+  method: "POST",
+  body: JSON.stringify(dados),
+  headers: {
+    "Content-Type": "application/json"
+  }
+})
+
+    .then(res => res.text())
+    .then(msg => {
+      document.getElementById("mensagem").textContent = "Confirmação enviada com sucesso! Obrigado pelo carinho 💐";
+      document.getElementById("rsvp-form").reset();
+    })
+    .catch(err => {
+      document.getElementById("mensagem").textContent = "Ocorreu um erro. Tente novamente.";
+      console.error(err);
+    });
+  });
+</script>
+
+</body>
+</html>
